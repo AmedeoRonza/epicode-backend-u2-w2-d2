@@ -179,6 +179,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\InsertCliente.cshtml" />
     <Content Include="Views\Home\Clienti.cshtml" />
+    <Content Include="Views\Home\InsertSpedizione.cshtml" />
+    <Content Include="Views\Home\Spedizioni.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
