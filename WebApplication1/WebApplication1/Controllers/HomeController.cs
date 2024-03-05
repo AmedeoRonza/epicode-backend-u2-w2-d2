@@ -30,10 +30,10 @@ namespace WebApplication1.Controllers
             {
                 conn.Open();
 
-                string query = "INSERT INTO Cliente (idCliente, Nominativo, IsAzienda, codiceFiscale, partitaIva) VALUES ( @idCliente, @Nominativo, @IsAzienda, @codiceFiscale, @partitaIva )";
+                string query = "INSERT INTO Cliente (Nominativo, IsAzienda, codiceFiscale, partitaIva) VALUES ( @Nominativo, @IsAzienda, @codiceFiscale, @partitaIva )";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@idCliente", cliente.idCliente);
+                
                 cmd.Parameters.AddWithValue("@Nominativo", cliente.Nominativo);
                 cmd.Parameters.AddWithValue("@IsAzienda", cliente.IsAzienda);
                 cmd.Parameters.AddWithValue("@codiceFiscale", cliente.codiceFiscale ?? (object)DBNull.Value);
@@ -52,6 +52,42 @@ namespace WebApplication1.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Clienti()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDb"].ToString();
+            SqlConnection conn = new SqlConnection(connectionString);
+            List<Cliente> listaClienti = new List<Cliente>();
+
+            try
+            {
+                conn.Open();
+                string query = "SELECT * FROM Cliente";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Cliente cliente = new Cliente();
+                    cliente.idCliente = Convert.ToInt32(reader["idCliente"]);
+                    cliente.Nominativo = reader["Nominativo"].ToString();
+                    cliente.IsAzienda = Convert.ToBoolean(reader["IsAzienda"].ToString());
+                    cliente.codiceFiscale = reader["codiceFiscale"].ToString();
+                    cliente.partitaIva = reader["partitaIva"].ToString();
+                    listaClienti.Add(cliente);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return View(listaClienti);
+
         }
     }
 }

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApplication1.Models.Cliente>
+
+@{
+    ViewBag.Title = "Clienti";
+}
+
+<h2>Lista Clienti</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nominativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAzienda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.codiceFiscale)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.partitaIva)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.idCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nominativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAzienda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.codiceFiscale)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.partitaIva)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
